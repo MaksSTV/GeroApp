@@ -1,0 +1,65 @@
+﻿version: "3.9"
+networks:
+  gero-dev:
+    driver: bridge
+services:
+  app: 
+    container_name: GeroAPI
+    build:
+      context: .
+      dockerfile: DockerfileBackend
+    ports:
+      - "80:80"
+    networks:
+      - gero-dev
+    depends_on:
+      - postgres_db
+  front:
+    container_name: GeroFront
+    build:
+      context: ./frontend
+      dockerfile: DockerfileFrontend
+    ports:
+      - "3000:3000"
+    networks:
+      - gero-dev
+    depends_on:
+      - app
+  postgres_db:
+    container_name: GeroPostgresDB
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: GeroDB
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    ports:
+      - "5432:5432"
+    networks:
+      - gero-dev
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./DB/1init.sql:/docker-entrypoint-initdb.d/1init.sql
+      - ./DB/2fill.sql:/docker-entrypoint-initdb.d/2fill.sql
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "habrpguser@habr.com"
+      PGADMIN_DEFAULT_PASSWORD: root
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "5879:80"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1G
+    networks:
+      - gero-dev
+volumes:
+  postgres-data:
+  pgadmin:

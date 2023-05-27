@@ -1,0 +1,5 @@
+CREATE TABLE items
+(
+    Id SERIAL PRIMARY KEY,
+    Title CHARACTER VARYING(30)
+);

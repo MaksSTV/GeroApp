@@ -1,0 +1,56 @@
+.Main{
+    flex: 1;
+    display: flex;
+    width: 100%;
+    margin: 4px 0;
+}
+
+.left-side,
+.right-side{
+    //background-color: rgb(183, 181, 181);
+    background-color: rgb(72, 58, 58);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
+    font-weight: 500;
+}
+
+.left-side{
+    min-width: 250px; // min-width сделано умышленно по ТЗ
+}
+
+.right-side{
+    min-width: 200px; // min-width сделано умышленно по ТЗ
+}
+
+.main-content{
+    flex: 1;
+    margin: 30px;
+    //max-height: 100%;
+}
+
+.main-content__grid{
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    //overflow-y: auto;
+    max-height: calc(100vh);
+    justify-items: center;
+}
+
+.main-content__grid-item{
+    width: 150px;
+    height: 100px;
+    //background-color: rgb(183, 181, 181);
+    background-color: rgb(72, 58, 58);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 400px;
+    border-radius: 7px;
+    white-space: nowrap;
+}
