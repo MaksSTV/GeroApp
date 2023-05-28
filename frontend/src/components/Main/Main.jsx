@@ -38,29 +38,41 @@ const Main = function () {
         const size = document.getElementById('grid')
         const style = getComputedStyle(size)
         const sizeCol = style.getPropertyValue("grid-template-columns").split(" ").length
+        //console.log(style.getPropertyValue("grid-template-columns"))
+        //console.log(style.getPropertyValue("grid-template-columns").split(" "))
+        //console.log(style.getPropertyValue("grid-template-columns").split(" ").length)
         
         if(sizeCol !== gridCol){
             setGridCol(sizeCol)
         }
 
-        //console.log(sizeCol, gridCol)
+        //alert(`sizeCol: ${sizeCol}, gridCol: ${gridCol}`)
 
-    }, [width]);
+    }, [width, height]);
 
     useEffect(() => {
         let windowSize = document.documentElement.clientHeight;
+        //console.log(`window size: ${windowSize}`)
         let contentSize = windowSize - 218;
         let countRow = Math.round((contentSize) / 130);
 
-        /*fetch(`https://jsonplaceholder.typicode.com/posts?_limit=${countRow * gridCol}`)
-        .then((response) => response.json())
-        .then((json) => setItems(json));*/
+        //console.log(`count row: ${countRow}, gridcol: ${gridCol}, amount: ${countRow * gridCol}`)
 
         if(gridCol !== 0){
-            const res = Items.getItems(countRow, gridCol)
+            /*fetch(`https://jsonplaceholder.typicode.com/photos?_limit=${countRow * gridCol}`)
+            .then((response) => response.json())
+            .then((json) => setItems(json));*/
+            let amount = countRow * gridCol;
+            if(amount > 500){
+                amount = 500;
+                alert("В базе данных находится только 500 элементов.")
+            }
+            const res = Items.getItems(amount)
             res.then(json => setItems(json)) 
+            //console.log(items.length)
         }
-           
+        
+        //alert(`count row: ${countRow}, gridcol: ${gridCol}, amount: ${countRow * gridCol}`)  
 
     }, [gridCol]);
 
