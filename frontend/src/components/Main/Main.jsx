@@ -17,6 +17,8 @@ const Main = function () {
     useLayoutEffect(() => {
         setWidth(ref.current.clientWidth);
         setHeight(ref.current.clientHeight);
+
+        console.log(width + "  1")
     }, []);
     
     
@@ -24,6 +26,7 @@ const Main = function () {
         function handleWindowResize() {
             setWidth(ref.current.clientWidth);
             setHeight(ref.current.clientHeight);
+            console.log(width + "  2")
         }
         window.addEventListener('resize', handleWindowResize);
         return () => {
@@ -40,6 +43,8 @@ const Main = function () {
             setGridCol(sizeCol)
         }
 
+        console.log(sizeCol, gridCol)
+
     }, [width]);
 
     useEffect(() => {
@@ -51,8 +56,11 @@ const Main = function () {
         .then((response) => response.json())
         .then((json) => setItems(json));*/
 
-        const res = Items.getItems(countRow, gridCol)
-        res.then(json => setItems(json))    
+        if(gridCol !== 0){
+            const res = Items.getItems(countRow, gridCol)
+            res.then(json => setItems(json)) 
+        }
+           
 
     }, [gridCol]);
 

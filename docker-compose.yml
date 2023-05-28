@@ -9,7 +9,7 @@ services:
       context: .
       dockerfile: DockerfileBackend
     ports:
-      - "80:80"
+      - "8080:80"
     networks:
       - gero-dev
     depends_on:
