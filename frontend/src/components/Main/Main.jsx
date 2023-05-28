@@ -18,7 +18,7 @@ const Main = function () {
         setWidth(ref.current.clientWidth);
         setHeight(ref.current.clientHeight);
 
-        console.log(width + "  1")
+       // console.log(width + "  1")
     }, []);
     
     
@@ -26,7 +26,7 @@ const Main = function () {
         function handleWindowResize() {
             setWidth(ref.current.clientWidth);
             setHeight(ref.current.clientHeight);
-            console.log(width + "  2")
+            //console.log(width + "  2")
         }
         window.addEventListener('resize', handleWindowResize);
         return () => {
@@ -43,7 +43,7 @@ const Main = function () {
             setGridCol(sizeCol)
         }
 
-        console.log(sizeCol, gridCol)
+        //console.log(sizeCol, gridCol)
 
     }, [width]);
 
